@@ -59,6 +59,28 @@ if (args.debug) {
     console.info('HTTP server is logging to this directory:')
     console.info(logpath)
 }
+
+if (args.h || args.help) {
+    console.log(`
+usage: node server.js --port=5000
+
+This package serves the static HTML, CSS, and JS files in a /public directory.
+It also creates logs in a common log format (CLF) so that you can better.
+
+  --stat,  -s    Specify the directory for static files to be served
+                    Default: ./public/
+  --port, -p    Specify the port for the HTTP server to listen on
+                    Default: 8080
+  --log,  -l    Specify the directory for the log files
+                    Default: ./log/
+  --help, -h    Displays this help message and exit 0 
+                    (Does not work when run with nodemon)
+  --debug       Echos more information to STDOUT so that you can see what is
+                    stored in internal variables, etc.
+    `)
+    process.exit(0)
+} 
+
 // Create an app server
 const app = express()
 // Set a port for the server to listen on
@@ -83,6 +105,29 @@ if (args.debug) {
 } 
 // Log server start to file
 fs.appendFileSync(path.join(logpath, 'server.log'), startlog)
+
+// Exit gracefully and log
+process.on('SIGINT', () => {
+// Create a log entry on SIGINT
+    let stoppinglog =  new Date().toISOString() + ' SIGINT signal received: stopping HTTP server\n'
+//  Log SIGINT to file
+    fs.appendFileSync(path.join(logpath, 'server.log'), stoppinglog)
+// Debug echo SIGINT log entry to STDOUT
+    if (args.debug) {
+        console.info('\n' + stoppinglog)
+    }
+// Create a log entry on stop
+    server.close(() => {
+        let stoppedlog = new Date().toISOString() + ' HTTP server stopped\n'
+// Log server stop to file
+        fs.appendFileSync(path.join(logpath, 'server.log'), stoppedlog)
+// Debug echo stop log entry to STDOUT
+        if (args.debug) {
+            console.info('\n' + stoppedlog)
+        }    
+    })
+})
+
 
 //ENDPOINTS
 app.get('/app/', (req, res) => {
@@ -129,24 +174,3 @@ app.all('*', (req, res) => {
     res.status(404).send('404 NOT FOUND').end();
 })
 
-// Exit gracefully and log
-process.on('SIGINT', () => {
-// Create a log entry on SIGINT
-    let stoppinglog =  new Date().toISOString() + ' SIGINT signal received: stopping HTTP server\n'
-//  Log SIGINT to file
-    fs.appendFileSync(path.join(logpath, 'server.log'), stoppinglog)
-// Debug echo SIGINT log entry to STDOUT
-    if (args.debug) {
-        console.info('\n' + stoppinglog)
-    }
-// Create a log entry on stop
-    server.close(() => {
-        let stoppedlog = new Date().toISOString() + ' HTTP server stopped\n'
-// Log server stop to file
-        fs.appendFileSync(path.join(logpath, 'server.log'), stoppedlog)
-// Debug echo stop log entry to STDOUT
-        if (args.debug) {
-            console.info('\n' + stoppedlog)
-        }    
-    })
-})
