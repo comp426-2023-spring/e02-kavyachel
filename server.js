@@ -1,5 +1,5 @@
 //importing modules
-import { rps, rpsls } from './lib/rpsls.js';
+import { rps, rpsls } from './public/lib/rpsls.js';
 //// Load most basic dependencies
 // Create require function 
 // https://nodejs.org/docs/latest-v18.x/api/module.html#modulecreaterequirefilename
