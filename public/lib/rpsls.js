@@ -1,39 +1,39 @@
 //Rules for RPSLS
 const RULES = {
     'rock': {
-        'rock': 'tie',
-        'paper': 'lose',
-        'scissors': 'win',
-        'lizard': 'win',
-        'spock': 'lose'
+        'rock': "It's a tie",
+        'paper': 'You lose',
+        'scissors': 'You win',
+        'lizard': 'You win',
+        'spock': 'You lose'
     },
     'paper': {
-        'rock': 'win',
-        'paper': 'tie', 
-        'scissors': 'lose',
-        'lizard': 'lose',
-        'spock': 'win'
+        'rock': 'You win',
+        'paper': "It's a tie", 
+        'scissors': 'You lose',
+        'lizard': 'You lose',
+        'spock': 'You win'
     },
     'scissors': {
-        'rock': 'lose',
-        'paper': 'win',
-        'scissors': 'tie',
-        'lizard': 'win',
-        'spock': 'lose'
+        'rock': 'You lose',
+        'paper': 'You win',
+        'scissors':  "It's a tie",
+        'lizard': 'You win',
+        'spock': 'You lose'
     },
     'lizard': {
-        'rock': 'lose',
-        'paper': 'win',
-        'scissors': 'lose',
-        'lizard': 'tie',
-        'spock': 'win'
+        'rock': 'You lose',
+        'paper': 'You win',
+        'scissors': 'You lose',
+        'lizard':  "It's a tie",
+        'spock': 'You win'
     },
     'spock': {
-        'rock': 'win',
-        'paper': 'lose',
-        'scissors': 'win',
-        'lizard': 'lose',
-        'spock': 'tie'
+        'rock': 'You win',
+        'paper': 'You lose',
+        'scissors': 'You win',
+        'lizard': 'You lose',
+        'spock': "It's a tie!"
     }
   };
   

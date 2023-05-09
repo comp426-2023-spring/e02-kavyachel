@@ -10,12 +10,35 @@ function getGameMode() {
     return gameModeButton ? gameModeButton.getAttribute("id") : null;
 }
 
+//Validate form
+function validateForm() {
+    console.log("form worjs")
+    var radios = document.getElementsByName("game");
+    var formValid = false;
+  
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) {
+        formValid = true;
+        break;
+      }
+    }
+  
+    if (!formValid) {
+      alert("Please select a game option.");
+      return false;
+    }
+    
+    return true;
+}
+
 //Hide radio on submit and display user options
 document.getElementById("gameModeForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // prevent form submission
-    document.getElementById("gameModeForm").style.display = "none";
-    const playAgainstOpponent = document.getElementById("opponent").checked;
-    showGameOptions(playAgainstOpponent)
+    if(validateForm()){
+        event.preventDefault(); // prevent form submission
+        document.getElementById("gameModeForm").style.display = "none";
+        const playAgainstOpponent = document.getElementById("opponent").checked;
+        showGameOptions(playAgainstOpponent)
+    }
   });
 
 //Display options (5 if rpsls, 3 if rps)
@@ -25,30 +48,30 @@ function showGameOptions(playAgainstOpponent) {
     if(playAgainstOpponent){
         if (gameMode === "rps") {
             gameButtonsContainer.innerHTML = `
-                <button class="user-inputs-button" name="user-choice" value="rock" id="rock">Rock</button>
+                <button class="user-inputs-button" name="user-choice" value="rock" id="Rock">Rock</button>
     
-                <button class="user-inputs-button" name="user-choice" value="paper" id="paper">Paper</button>
+                <button class="user-inputs-button" name="user-choice" value="paper" id="Paper">Paper</button>
     
-                <button class="user-inputs-button" name="user-choice" value="scissors" id="scissors">Scissors</button>
+                <button class="user-inputs-button" name="user-choice" value="scissors" id="Scissors">Scissors</button>
             `;
         } else if (gameMode === "rpsls") {
             gameButtonsContainer.innerHTML = `
-                <button class="user-inputs-button" name="user-choice" value="rock" id="rock">Rock</button>
+                <button class="user-inputs-button" name="user-choice" value="rock" id="Rock">Rock</button>
     
-                <button class="user-inputs-button" name="user-choice" value="paper" id="paper">Paper</button>
+                <button class="user-inputs-button" name="user-choice" value="paper" id="Paper">Paper</button>
                 
-                <button class="user-inputs-button" name="user-choice" value="scissors" id="scissors">Scissors</button>
+                <button class="user-inputs-button" name="user-choice" value="scissors" id="Scissors">Scissors</button>
     
-                <button class="user-inputs-button" name="user-choice" value="lizard" id="lizard">Lizard</button>
+                <button class="user-inputs-button" name="user-choice" value="lizard" id="Lizard">Lizard</button>
     
-                <button class="user-inputs-button" name="user-choice" value="spock" id="spock">Spock</button>
+                <button class="user-inputs-button" name="user-choice" value="spock" id="Spock">Spock</button>
                 
             `;
         }
     }
     else{
         gameButtonsContainer.innerHTML = `
-            <button class="user-inputs-button" name="user-choice" id="rock">Shoot</button>
+            <button class="user-inputs-button" name="user-choice" id="Rock">Shoot</button>
         `;
     }
     
@@ -72,8 +95,9 @@ function play(playerSelection, playAgainstOpponent) {
         } else if (getGameMode() === "rpsls") {
             gameResult = rpsls(playerSelection);
         }
-        resultContainer.innerHTML = `<p>You chose ${gameResult.player}. Your opponent chose ${gameResult.opponent}. ${gameResult.result}</p>
-        <button class="start-over">START OVER</button>`;
+        gameButtonsContainer.innerHTML = ``;
+        resultContainer.innerHTML = `<p>You chose ${gameResult.player}.  Your opponent chose ${gameResult.opponent}.  ${gameResult.result}!</p>
+        <a href = "index.html" class = "start-over">START OVER</a>`;
     }
     else{
         if(getGameMode() === "rps") {
@@ -82,17 +106,12 @@ function play(playerSelection, playAgainstOpponent) {
         else {
             gameResult = rpsls().player;
         }
-        
-        resultContainer.innerHTML = `<p>${gameResult}</p><button class="start-over">START OVER</button>`;
+        gameButtonsContainer.innerHTML = ``;
+        resultContainer.innerHTML = `<p>You got ${gameResult}!</p> <a href = "index.html" class = "start-over">START OVER</a>`;
     }
 }
 
-//Start Over
-resultContainer.addEventListener('click', function(event) {
-    if (event.target.matches('button')) {
-        location.reload();
-    }
-  });
+
 
 
 

@@ -8,26 +8,28 @@
     <body>
 
     <!-- Your interface markup goes here -->
-    <h1>Welcome to Rock, Paper, Scissors</h1>
-        
-    <form id = "gameModeForm">
-        <p>Which game would you like to play?</p>
-        <input type="radio" id="rps" name="game" value="rps" class="game">
-        <label for="rps">Rock, Paper, Scissors</label><br>
-        <input type="radio" id="rpsls" name="game" value="rpsls" class="game">
-        <label for="rpsls">Rock, Paper, Scissors, Lizard, Spock</label><br>
-        
-        <br>  
-        <input type="checkbox" id="opponent" class="mode-option">
-        <label id="play-opponent" >Play against an opponent?</label>
-        <input type="submit" value="Submit">
-      </form>
+      <h1 class = "header">Rock, Paper, Scissors</h1>
+      
+      <div class = "game-body">
+        <form id = "gameModeForm">
+            <p>Which game would you like to play?</p>
+            <input type="radio" id="rps" name="game" value="rps" class="game">
+            <label for="rps">Rock, Paper, Scissors</label><br>
+            <input type="radio" id="rpsls" name="game" value="rpsls" class="game">
+            <label for="rpsls">Rock, Paper, Scissors, Lizard, Spock</label><br>
+            
+            <br>  
+            <input type="checkbox" id="opponent" class="mode-option">
+            <label id="play-opponent" >Play against an opponent?</label>
+            <br>
+            <input class = "btn" type="submit" value="Submit">
+        </form>
 
-      <div class="game-mode"></div> <!-- refer to scripts.js for dynamically loading -->
-      <br>
-      <div class="result"></div> <!-- refer to scripts.js for dynamically loading -->
-      <br>
-
+          <div class="game-mode"></div> <!-- refer to scripts.js for dynamically loading -->
+          <br>
+          <div class="result"></div> <!-- refer to scripts.js for dynamically loading -->
+          <br>
+      </div>
     <!-- For interface examples, look in the `/examples/` directory in the root of your starter code repo. -->
 
     </body>
